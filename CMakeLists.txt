@@ -6,5 +6,5 @@ add_executable(VisualTester
     visualtester_includes.h
 )
 
-# Линкуем к библиотеке форм из TestApp2
-target_link_libraries(VisualTester Qt6::Widgets TestApp2Lib)
+# После Qt6::Widgets необходимо добавить библиотеку с формами приложения для тестирования
+target_link_libraries(VisualTester Qt6::Widgets)

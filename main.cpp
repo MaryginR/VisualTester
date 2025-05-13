@@ -8,19 +8,20 @@ int main(int argc, char *argv[]) {
 
     VisualTester tester("baseline", "diffs");
 
-    // Настройка цвета выделения и интенсивности (по умолчанию красный, интенсивность 0.5)
-    //tester.setHighlightColor(Qt::green);      // Можно установить любой цвет
-    //tester.setHighlightIntensity(0.5);       // Интенсивность от 0.0 до 1.0
+    // Настройка цвета выделения визуальных багов на формах, можно не указывать, по умолчанию места различий между эталоном и тестируемой формой будут помечаться красным
+    tester.setHighlightColor(Qt::blue);      // Можно установить любой цвет
+    tester.setHighlightIntensity(0.5);       // Интенсивность от 0.0 до 1.0
 
-    // Список форм для создания эталонов
-    //tester.createBaseline("Form1", new Form1());
-    //tester.createBaseline("Form2", new Form2());
+    // Пример автоматического создания эталона формы, первый параметр - имя сохраняемого эталона, второй параметр - объект класса формы
+    tester.createBaseline("Form1", new Form1());
 
-    // Список форм для тестирования
+    // Пример тестирования формы, первый параметр - эталон с которым сравнивается форма, второй параметр - объект класса формы
     tester.compareWithBaseline("Form1", new Form1());
 
+    // Пример тестирования формы с дополнительными параметрами
     Form2* formAlt = new Form2();
     tester.configure<Form2>(formAlt, [](Form2* form) {
+        // Пример с комплексным изменением различных параметров элемента формы
         QLabel* label = form->findChild<QLabel*>("label");
         if (label) {
             label->setText("Changed text");
@@ -28,6 +29,13 @@ int main(int argc, char *argv[]) {
         }
     });
     tester.compareWithBaseline("Form2", formAlt);
+
+    tester.configure<Form2>(formAlt, [](Form2* form) {
+        // Пример с изменением различных свойств элементов по отдельности
+        form->setWindowTitle("Form for test");
+        form->findChild<QLineEdit*>("lineEdit")->setText("Alternative Text");
+        form->findChild<QComboBox*>("comboBox")->setCurrentIndex(2);
+    });
 
     return 0;
 }
