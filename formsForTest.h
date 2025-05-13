@@ -1,2 +1,2 @@
-#include "../TestApp2/form1.h"
-#include "../TestApp2/form2.h"
+#include "../TestApp/form1.h"
+#include "../TestApp/form2.h"
