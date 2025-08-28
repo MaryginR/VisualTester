@@ -16,6 +16,8 @@ public:
 
     void createBaseline(const QString &formName, QWidget *formWidget, FormSetupFunc setup = nullptr);
     void compareWithBaseline(const QString &formName, QWidget *formWidget, FormSetupFunc setup = nullptr);
+    void createElementBaseline(const QString &formName, QWidget *formWidget, const QString &elementName, FormSetupFunc setup = nullptr);
+    void compareElementWithBaseline(const QString &formName, QWidget *formWidget, const QString &elementName, FormSetupFunc setup = nullptr);
 
     template<typename T>
     void configure(QWidget* widget, std::function<void(T*)> setup);
